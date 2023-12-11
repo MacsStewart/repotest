@@ -2,8 +2,15 @@ package builtins
 
 import (
 	"fmt"
+	"io"
 	"runtime"
 )
+
+func printCallerInfo(w io.Writer) error {
+	callStackInfo := getCallStackInfo(1)
+	_, err := fmt.Fprintln(w, callStackInfo)
+	return err
+}
 
 func getCallStackInfo(levels int) string {
 	pc := make([]uintptr, 10)
